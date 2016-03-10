@@ -27,6 +27,21 @@ h1 {
     padding: 10px;
 }
 
+#button{
+    width:300px;
+    height:60px;
+    margin-bottom: 10px;
+    cursor:pointer;
+    border:#fff;
+    background:#3F9DF2;
+    color:#fff;
+}
+#button:hover{
+    border:1px solid #3F9DF2;
+    background:#fff;
+    color:#3F9DF2;
+}
+
 canvas {
     width: 800px;
     height: 600px;
@@ -46,7 +61,7 @@ canvas {
     <h1>Pictionary</h1>
     <div id="top-message">
         <div id="claim">
-            <button>Let me draw!</button>
+            <button id='button'>Let me draw!</button>
         </div>
         <div id="guess" style="display: block">
             Make a guess: <input type="text">

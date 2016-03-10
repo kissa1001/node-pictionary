@@ -9,6 +9,7 @@ var pictionary = function() {
     guessList = $('#guess-list');
     claimButton = $('#claim').find('button');
     wordToDraw = $('#word');
+    systemMsg = $('#system');
     
     //Draw function
     var draw = function(position) {
@@ -64,12 +65,18 @@ var pictionary = function() {
     socket.on('guess', function(guess){
         var guesses = guessList.text();
         secretWord = $('#secretWord').text();
-        if(guess == (secretWord){
-            claimButton.click();
-        }
-        else{
-            guessList.text(guesses + guess + ', ');
-        }
+            if(guess == secretWord){
+                if(drawer){
+                    alert('The guesser guessed the word, now his turn to draw!');
+                }
+                else{
+                    alert('Congratulations, now it\'s your turn to draw!');
+                    claimButton.click();
+                }
+            }
+            else{
+                guessList.text(guesses + guess + ', ');
+            }
     });
 
     //Clear canvas
