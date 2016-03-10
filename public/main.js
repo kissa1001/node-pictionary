@@ -8,6 +8,8 @@ var pictionary = function() {
     var clearButton = $('#clear');
     guessList = $('#guess-list');
     claimButton = $('#claim').find('button');
+    wordToDraw = $('#word');
+    
     //Draw function
     var draw = function(position) {
         context.beginPath();
@@ -22,7 +24,6 @@ var pictionary = function() {
             return;
         }
         var guess = guessBox.val();
-        console.log(guess);
         socket.emit('guess', guess);
         guessBox.val('');
     };
@@ -62,7 +63,13 @@ var pictionary = function() {
     //Listen for the broadcast guess event
     socket.on('guess', function(guess){
         var guesses = guessList.text();
-        guessList.text(guesses + guess + ', ');
+        secretWord = $('#secretWord').text();
+        if(guess == (secretWord){
+            claimButton.click();
+        }
+        else{
+            guessList.text(guesses + guess + ', ');
+        }
     });
 
     //Clear canvas
@@ -84,10 +91,9 @@ var pictionary = function() {
         claimButton.show();
     });
 
-    wordToDraw = $('#word');
     socket.on('drawer', function(word) {
         drawer = true;
-        wordToDraw.text('You\'re the drawer. Draw a ' + word + '!').css('display', 'block');
+        wordToDraw.append('<div>You\'re the drawer. Draw a <span id="secretWord">' + word + '</span>!</div>').css('display', 'block');
         $('#guess').hide();
     });
 
