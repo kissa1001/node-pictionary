@@ -4,7 +4,6 @@ var socket_io = require('socket.io');
 
 var app = express();
 app.use(express.static('public'));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 var server = http.Server(app);
 var io = socket_io(server);
 
