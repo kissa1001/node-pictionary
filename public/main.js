@@ -6,11 +6,27 @@ var pictionary = function() {
     var socket = io();
     var drawer;
     var clearButton = $('#clear');
+    guessBlock = $('.guess-block');
+    makeGuess = $('#guess');
     guessList = $('#guess-list');
     claimButton = $('#claim').find('button');
     wordToDraw = $('#word');
     systemMsg = $('#system');
-    
+    var WORDS = [
+    "word", "letter", "number", "person", "pen", "class", "people",
+    "sound", "water", "side", "place", "man", "men", "woman", "women", "boy",
+    "girl", "year", "day", "week", "month", "name", "sentence", "line", "air",
+    "land", "home", "hand", "house", "picture", "animal", "mother", "father",
+    "brother", "sister", "world", "head", "page", "country", "question",
+    "answer", "school", "plant", "food", "sun", "state", "eye", "city", "tree",
+    "farm", "story", "sea", "night", "day", "life", "north", "south", "east",
+    "west", "child", "children", "example", "paper", "music", "river", "car",
+    "foot", "feet", "book", "science", "room", "friend", "idea", "fish",
+    "mountain", "horse", "watch", "color", "face", "wood", "list", "bird",
+    "body", "dog", "family", "song", "door", "product", "wind", "ship", "area",
+    "rock", "order", "fire", "problem", "piece", "top", "bottom", "king",
+    "space"
+    ];
     //Draw function
     var draw = function(position) {
         context.beginPath();
@@ -63,8 +79,17 @@ var pictionary = function() {
     });
     //Listen for the broadcast guess event
     socket.on('guess', function(guess){
-        var guesses = guessList.text();
-        guessList.text(guesses + guess + ', ');
+        if(WORDS.includes(guess)){
+            socket.emit('won', guess);
+            guessList.text(guess + ' is correct answer!');
+            claimButton.show();
+            makeGuess.hide();
+            wordToDraw.hide();
+        }
+        else{
+            var guesses = guessList.text();
+            guessList.text(guesses + guess + ', ');
+        }
     });
 
     //Clear canvas
@@ -76,10 +101,12 @@ var pictionary = function() {
     claimButton.on('click', function() {
         socket.emit('claim pen');
         claimButton.hide();
+        guessBlock.show();
     });
 
     socket.on('pen claimed', function() {
         claimButton.hide();
+        guessBlock.show();
     });
 
     socket.on('pen open', function() {

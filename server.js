@@ -28,7 +28,6 @@ var getWord = function(wordList) {
 	var index = Math.floor(Math.random() * (wordList.length - 1));
 	return wordList[index];
 };
-
 io.on('connection', function(socket){
 	console.log('Connected');
 	var word = getWord(WORDS);
@@ -43,7 +42,10 @@ io.on('connection', function(socket){
 		socket.broadcast.emit('guess', guess);
 		socket.emit('guess', guess);
 	});
-
+	//On guessed
+	socket.on('won', function(guess){
+		
+	})
 	//Broadcast who is drawing
 	socket.on('claim pen', function(){
 		socket.drawer = true;

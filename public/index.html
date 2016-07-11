@@ -5,50 +5,74 @@
 
 <!-- CSS -->
 <style>
-* {
-    box-sizing: border-box;
-}
+    * {
+        box-sizing: border-box;
+    }
 
-body {
-    color: #1E2835;
-    background-color: #F8F8F8;
-    font-size: 1.5em;
-}
+    body {
+        color: #1E2835;
+        font-size: 1.5em;
+        font-family: 'Helvetica', serif;
+        margin: 0;
+        padding: 0;
+        background: #ECE9E6; 
+        background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); 
+        background: linear-gradient(to left, #ECE9E6 , #FFFFFF);  
+    }
 
-h1 {
-    background-color: #9ABBFF;
-    margin:  0 0 20px 0;
-    padding: 20px;
-    text-align: center;
-}
+    h1 {
+        background: #50C9C3;
+        background: -webkit-linear-gradient(to left, #50C9C3 , #96DEDA); 
+        background: linear-gradient(to left, #50C9C3 , #96DEDA); 
+        margin:  0 0 20px 0;
+        padding: 20px;
+        text-align: center;
+    }
 
-#top-message {
-    text-align: center;
-    padding: 10px;
-}
+    #top-message {
+        text-align: center;
+        padding: 10px;
+    }
 
-#button{
-    width:300px;
-    height:60px;
-    margin-bottom: 10px;
-    cursor:pointer;
-    border:#fff;
-    background:#3F9DF2;
-    color:#fff;
-}
-#button:hover{
-    border:1px solid #3F9DF2;
-    background:#fff;
-    color:#3F9DF2;
-}
-
-canvas {
-    width: 800px;
-    height: 600px;
-    border: 1px #C7CACD solid;
-    display: block;
-    margin: 0 auto;
-}
+    #button{
+        width:300px;
+        height:60px;
+        margin-bottom: 10px;
+        cursor:pointer;
+        border:#fff;
+        background:#3F9DF2;
+        color:#fff;
+        font-size: 1em;
+        transition: 1s;
+    }
+    #button:hover{
+        border:1px solid #3F9DF2;
+        background:#fff;
+        color:#3F9DF2;
+    }
+    #clear{
+        width:200px;
+        height:40px;
+        cursor:pointer;
+        border:#fff;
+        background:#FF2C39;
+        font-size: 0.6em;
+        color:#fff;
+        transition: 1s;
+        margin: 10px auto 10px auto;
+    }
+    #clear:hover{
+        border:1px solid #FF2C39;
+        background:#fff;
+        color: #FF2C39;
+    }
+    canvas {
+        width: 800px;
+        height: 600px;
+        border: 1px #C7CACD solid;
+        display: block;
+        margin: 0 auto;
+    }
 </style>
 
 <!-- JS -->
@@ -63,12 +87,14 @@ canvas {
         <div id="claim">
             <button id='button'>Let me draw!</button>
         </div>
-        <div id="guess" style="display: block">
-            Make a guess: <input type="text">
+        <div class="guess-block" style="display: none">
+            <div id="guess" style="display: block">
+                Make a guess: <input type="text">
+            </div>
+            <div id="word"></div>
+            <div id="guess-list">Guesses: </div>
         </div>
-        <div id="word" style="display: none"></div>
-        <div id="guess-list">Guesses: </div>
+        <button id="clear">Clear Canvas</button>
     </div>
     <canvas id="canvas"></canvas>
-    <button id="clear">Clear Canvas</button>
 </div>
