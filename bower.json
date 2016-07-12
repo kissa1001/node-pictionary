@@ -1,0 +1,22 @@
+{
+  "name": "pictionary",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "kissa1001 <kissa101295@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/kissa1001/node-pictionary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "handlebars": "^4.0.5"
+  }
+}
