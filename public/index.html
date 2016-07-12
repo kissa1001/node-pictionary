@@ -1,99 +1,104 @@
-<!doctype html>
-<title>Pictionary</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<!-- CSS -->
-<style>
-    * {
-        box-sizing: border-box;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pictionary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        color: #1E2835;
-        font-size: 1.5em;
-        font-family: 'Helvetica', serif;
-        margin: 0;
-        padding: 0;
-        background: #ECE9E6; 
-        background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); 
-        background: linear-gradient(to left, #ECE9E6 , #FFFFFF);  
-    }
+        body {
+            color: #1E2835;
+            font-size: 1.5em;
+            font-family: 'Helvetica', serif;
+            margin: 0;
+            padding: 0;
+            background: #ECE9E6; 
+            background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); 
+            background: linear-gradient(to left, #ECE9E6 , #FFFFFF);  
+        }
 
-    h1 {
-        background: #50C9C3;
-        background: -webkit-linear-gradient(to left, #50C9C3 , #96DEDA); 
-        background: linear-gradient(to left, #50C9C3 , #96DEDA); 
-        margin:  0 0 20px 0;
-        padding: 20px;
-        text-align: center;
-    }
+        h1 {
+            background: #50C9C3;
+            background: -webkit-linear-gradient(to left, #50C9C3 , #96DEDA); 
+            background: linear-gradient(to left, #50C9C3 , #96DEDA); 
+            margin:  0 0 20px 0;
+            padding: 20px;
+            text-align: center;
+        }
 
-    #top-message {
-        text-align: center;
-        padding: 10px;
-    }
+        #top-message {
+            text-align: center;
+            padding: 10px;
+        }
 
-    #button{
-        width:300px;
-        height:60px;
-        margin-bottom: 10px;
-        cursor:pointer;
-        border:#fff;
-        background:#3F9DF2;
-        color:#fff;
-        font-size: 1em;
-        transition: 1s;
-    }
-    #button:hover{
-        border:1px solid #3F9DF2;
-        background:#fff;
-        color:#3F9DF2;
-    }
-    #clear{
-        width:200px;
-        height:40px;
-        cursor:pointer;
-        border:#fff;
-        background:#FF2C39;
-        font-size: 0.6em;
-        color:#fff;
-        transition: 1s;
-        margin: 10px auto 10px auto;
-    }
-    #clear:hover{
-        border:1px solid #FF2C39;
-        background:#fff;
-        color: #FF2C39;
-    }
-    canvas {
-        width: 800px;
-        height: 600px;
-        border: 1px #C7CACD solid;
-        display: block;
-        margin: 0 auto;
-    }
-</style>
-
-<!-- JS -->
-<script src="//code.jquery.com/jquery-2.1.0.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="main.js"></script>
-
-<div id="main">
-    <h1>Pictionary</h1>
-    <div id="top-message">
-        <div id="claim">
-            <button id='button'>Let me draw!</button>
-        </div>
-        <div class="guess-block" style="display: none">
-            <div id="guess" style="display: block">
-                Make a guess: <input type="text">
+        #button{
+            width:300px;
+            height:60px;
+            margin-bottom: 10px;
+            cursor:pointer;
+            border:#fff;
+            background:#3F9DF2;
+            color:#fff;
+            font-size: 1em;
+            transition: 1s;
+        }
+        #button:hover{
+            border:1px solid #3F9DF2;
+            background:#fff;
+            color:#3F9DF2;
+        }
+        #clear{
+            width:200px;
+            height:40px;
+            cursor:pointer;
+            border:#fff;
+            background:#FF2C39;
+            font-size: 0.6em;
+            color:#fff;
+            transition: 1s;
+            margin: 10px auto 10px auto;
+        }
+        #clear:hover{
+            border:1px solid #FF2C39;
+            background:#fff;
+            color: #FF2C39;
+        }
+        canvas {
+            width: 800px;
+            height: 600px;
+            border: 1px #C7CACD solid;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>Pictionary</h1>
+        <div id="top-message">
+            <div id="claim">
+                <button id='button'>Let me draw!</button>
             </div>
-            <div id="word"></div>
-            <div id="guess-list">Guesses: </div>
+            <div class="guess-block" style="display: none">
+                <div id="guess" style="display: block">
+                    Make a guess: <input type="text">
+                </div>
+                <div id="word"></div>
+                <div id="guess-list">Guesses: </div>
+            </div>
+            <button id="clear">Clear Canvas</button>
         </div>
-        <button id="clear">Clear Canvas</button>
+        <canvas id="canvas"></canvas>
     </div>
-    <canvas id="canvas"></canvas>
-</div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
