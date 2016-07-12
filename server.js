@@ -1,11 +1,11 @@
 var http = require('http');
 var express = require('express');
 var socket_io = require('socket.io');
-// var favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 var path = require('path');
 var app = express();
-app.use(express.static('public'));
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'public')));
 var server = http.Server(app);
 var io = socket_io(server);
 
